@@ -1,33 +1,73 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 var now = new Date();
 var datetime = now.toLocaleString();
-document.getElementById("currentDay").innerHTML = datetime;
+var currentTime = dayjs(datetime).format('h:mm A');
+var currentDate = dayjs(datetime).format('	dddd, MMMM D');
+document.getElementById("currentDay").innerHTML = currentDate;
+ var id = " ";
+var scheduledTiem = " ";
+var scheduledData = " "; 
+div_id = " ";
+var scheduled = {
+                  time: " ",
+                  data: " ",
+                  id: 1
+                }
 
-var scheduled ={
-  date: date,
+
+// Starting function
+ timechecker();
+
+//  Click event strarting point
+$(".btn").click(function(){
+  id = this.id;
+  scheduledTiem = document.getElementsByTagName("div")[id].id;
+  scheduledData = "txt-hour-"+ id; 
+
+  schedule(scheduledTiem, scheduledData);
+
   
-}
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-$(function () {
-  console.log("time is :" + datetime);
-  // $("#currentDay").data() = currenteTime;
-  // TODO: Add a listener for click events on the save button. This code should
-  // use the id in the containing time-block as a key to save the user input in
-  // local storage. HINT: What does `this` reference in the click listener
-  // function? How can DOM traversal be used to get the "hour-x" id of the
-  // time-block containing the button that was clicked? How might the id be
-  // useful when saving the description in local storage?
-  //
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
-  //
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-  //
-  // TODO: Add code to display the current date in the header of the page.
 });
+
+
+
+$("#id").on ("click", function () {
+
+});
+
+
+function schedule(newId, dataID){
+  scheduled.time =document.getElementById(newId).innerText;
+  scheduled.data = document.getElementById(dataID).value;
+  localStorage.setItem( scheduled.time, scheduled.data);
+  console.log("Schuled time from Schedule :" + scheduled.time);
+  div_id = id+"hour-" + id;
+  
+  var resalt = timechecker();
+  if(resalt==="future"){
+    document.getElementById(div_id).classList.add("future");
+  } else if(resalt==="present") {
+    document.getElementById(div_id).classList.add("present");
+    
+  }else{
+    document.getElementById(div_id).classList.add(past);
+  }
+  
+
+}
+
+function timechecker(){
+var justInTime = dayjs().format('h:mm A');
+console.log("just in time " + justInTime)
+var diff  ;
+
+
+
+if(justInTime <= scheduled.time){
+  diff = "future";
+} else {
+  diff = "present";
+}
+
+return diff;
+}
