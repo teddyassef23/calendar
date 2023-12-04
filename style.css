@@ -14,6 +14,8 @@ textarea {
 
 .description {
   white-space: pre-wrap;
+  border: rgb(227, 224, 224);
+  border-style: solid;
 }
 
 .time-block {
@@ -30,14 +32,24 @@ textarea {
   border-top: 1px dashed #000000;
 }
 
+.schaduled{
+  display:none;
+  align-items: center;
+  margin-left: 50%;
+  font-style: italic;
+}
+
+.display{
+  display: block;
+}
 .past {
-  background-color: #d3d3d3;
+  background-color: #e21717;
   color: white;
 }
 
 .present {
-  background-color: #ff6961;
-  color: white;
+  background-color: #a69f9f;
+  color: rgb(144, 138, 138);
 }
 
 .future {
